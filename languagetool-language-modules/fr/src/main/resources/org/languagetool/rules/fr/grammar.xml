@@ -8276,6 +8276,75 @@ though, and has since been slightly modified)-->
                 <example>Ceci pouvait être considéré comme peu ou prou vrai, avec la troisième et dernière édition c'est devenu une erreur.</example>
                 <example>Cette même année c’est lui qui signe le contrat pour l’orgue de la cathédrale de Valence.</example>
             </rule>
+			<rule default="temp_off">
+            <pattern>
+                <token>sa</token>
+                <marker>
+                    <token case_sensitive="yes">ses<exception postag="[NJ].*" postag_regexp="yes"/></token>
+                </marker>
+            </pattern>
+            <message>Deux déterminants ne peuvent pas se suivre.</message>
+            <suggestion>c'est</suggestion>
+            <example correction="c'est">Il est vrai que sa <marker>ses</marker> vraiment chouette.</example>
+        </rule>
+        <rule default="temp_off">
+            <pattern>
+                <token postag="R.*" postag_regexp="yes"><exception regexp="yes">dont|tous</exception></token>
+                <marker>
+                    <token>ses</token>
+                </marker>
+                <token postag="V.* ppa.*" postag_regexp="yes"><exception postag="N.*" postag_regexp="yes"/></token>
+            </pattern>
+            <message>Un auxiliaire est attendu avant le participe passé '\3'.</message>
+            <suggestion>s'est</suggestion>
+            <example correction="s'est">Cela <marker>ses</marker> agrandi.</example>
+        </rule>
+        <rule default="temp_off">
+            <antipattern>
+                <token>sa</token>
+                <token>une</token>
+                <token><exception postag="[NJ].*" postag_regexp="yes"/></token>
+            </antipattern>
+            <antipattern>
+                <token>sa</token>
+                <token>sa</token>
+                <token postag="[NVJ].*" postag_regexp="yes"/>
+            </antipattern>
+            <antipattern>
+                <token postag="N.*" postag_regexp="yes"/>
+                <token>sa</token>
+                <token regexp="yes">tous|toutes?</token>
+            </antipattern>
+            <antipattern>
+                <token>sa</token>
+                <token>sa</token>
+                <token>sa</token>
+            </antipattern>
+            <antipattern>
+                <token><exception postag="SENT_START"/></token>
+                <token regexp="yes">(?-i)Sa</token>
+            </antipattern>
+            <antipattern>
+                <token regexp="yes">(?-i)SA</token>
+            </antipattern>
+            <pattern>
+                <marker>
+                    <token>sa</token>
+                </marker>
+                <token postag="D.*" postag_regexp="yes">
+                    <exception>toute</exception>
+                    <exception scope="next" postag="UNKNOWN|K" postag_regexp="yes"/></token>
+            </pattern>
+            <message>Deux déterminants ne peuvent pas se suivre.</message>
+            <suggestion>ça</suggestion>
+            <example correction="ça">Enfin, <marker>sa</marker> ses vraiment chouette.</example>
+            <example>Elle perd sa sa seule fille.</example>
+            <example>SA des mines de Malfidano (Espagne).</example>
+            <example>1985 : Ya ya ya sa sa sa : Ilyas.</example>
+            <example>Ils larguent leur kéro avant d arrivé a l aéroport sa sa pollue.</example>
+            <example>Le Signpost y a consacré sa Une.</example>
+            <example>Bonnes course sa tous.</example>
+        </rule>
         </rulegroup>
         <rule id="MA" name="MA au lieu de M’A">
             <pattern>
